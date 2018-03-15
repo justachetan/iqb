@@ -12,6 +12,8 @@
 analysis(100, 1000, 50);
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %This function initialises a list of x-coordinates and y-coordinates of
@@ -128,13 +130,18 @@ end
 % This function simulates a random walk from the number of molecules,
 % number of iterations and the size of the lattice
 % 
+% Here, we are also plotting the plots of the magnitude of the mean 
+% displacement at 3 different points too, i.e., after 250, 500, and 750 
+% iterations respectively. Here, we see that the plots approximate to a 
+% Gaussian distribution in accordance with CLT.
+% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [copy_x, copy_y, xs, ys] = random_walk(n, iter, size)
     
     [x_coords, y_coords] = initialize_coords(n, size);
     copy_x = x_coords;
     copy_y = y_coords;
-    
+    figure;
     for i = 1 : iter
         for p = 1 : n
             dir = 0;
@@ -153,7 +160,42 @@ function [copy_x, copy_y, xs, ys] = random_walk(n, iter, size)
                 x_coords, y_coords, size, p);
             x_coords(p) = a;
             y_coords(p) = b;
+            
+            
         end
+        
+        if i == 250
+                rx = x_coords - copy_x;
+                ry = y_coords - copy_y;
+                r = sqrt(rx.^2 + ry.^2);
+                figure(1);
+                histfit(r,25, 'normal');
+                xlabel('Displacement Magnitude');
+                ylabel('Frequency');
+                title('At 250 iterations');
+                
+             elseif i == 500
+                 rx = x_coords - copy_x;
+                 ry = y_coords - copy_y;
+                 r = sqrt(rx.^2 + ry.^2);
+                 figure(2);
+                 histfit(r,25, 'normal');
+                 xlabel('Displacement Magnitude');
+                 ylabel('Frequency');
+                 title('At 500 iterations');
+  
+                 
+             elseif i == 750
+                 rx = x_coords - copy_x;
+                 ry = y_coords - copy_y;
+                 r = sqrt(rx.^2 + ry.^2);
+                 figure(3);
+                 histfit(r,25, 'normal');
+                 xlabel('Displacement Magnitude');
+                 ylabel('Frequency');
+                 title('At 750 iterations');
+
+       end
     end
     
     xs = x_coords;
