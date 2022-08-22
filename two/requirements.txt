@@ -3,7 +3,7 @@ greenlet==0.4.12
 matplotlib==2.1.1
 msgpack-python==0.5.1
 neovim==0.2.0
-numpy==1.14.0
+numpy==1.22.0
 pandas==0.22.0
 pyparsing==2.2.0
 python-dateutil==2.6.1
